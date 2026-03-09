@@ -1,36 +1,23 @@
-name: Build MSVC Project
+name: Build
 
 on:
   push:
     branches: ["main"]
-  workflow_dispatch:
-
-env:
-  SOLUTION_FILE_PATH: ./usermode/cs2_webradar.sln
-  BUILD_CONFIGURATION: release
-  BUILD_PLATFORM: x64
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
+    - uses: microsoft/setup-msbuild@v2
 
-    - name: Build solution
-      run: msbuild ${{env.SOLUTION_FILE_PATH}} /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=${{env.BUILD_PLATFORM}}
-
-    - name: List build output
-      run: dir /s *.exe
+    - name: Build
+      run: msbuild ./usermode/cs2_webradar.sln /p:Configuration=release /p:Platform=x64
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: build
-        path: |
-          **/*.exe
-          **/*.dll
+        name: usermode-build
+        path: usermode/release/usermode.exe
