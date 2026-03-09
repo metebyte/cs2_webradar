@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  SOLUTION_FILE_PATH: ./cs2_webradar.sln
+  SOLUTION_FILE_PATH: ./usermode/cs2_webradar.sln
   BUILD_CONFIGURATION: release
   BUILD_PLATFORM: x64
 
